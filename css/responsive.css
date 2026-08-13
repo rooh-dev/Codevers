@@ -1,0 +1,79 @@
+/* =========================================
+   CODEVERSE - RESPONSIVE / SCROLL BALANCE
+   ========================================= */
+
+/*
+   Important scroll fix:
+   main.css sets html/body to height:100%.
+   For a long scroll-driven experience, the document height must be allowed
+   to grow naturally based on the scroll container.
+*/
+
+html {
+    height: auto;
+}
+
+body {
+    height: auto;
+    min-height: 100vh;
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+
+/*
+   Balanced scroll length.
+
+   The original 1300vh was too short for the full cinematic timeline.
+   Increasing the scroll track slows down the perceived camera speed
+   without changing the 0 to 1 timeline logic.
+*/
+
+.scroll-container {
+    pointer-events: auto;
+    height: 2600vh;
+}
+
+/*
+   Mobile should still be long enough to feel cinematic,
+   but not exhaustively tall.
+*/
+
+@media (max-width: 768px) {
+    .scroll-container {
+        height: 2200vh;
+        pointer-events: auto;
+    }
+
+    #webgl-container,
+    .webgl-canvas {
+        touch-action: pan-y;
+    }
+}
+
+/*
+   Allow vertical touch scrolling on canvas and fixed layers.
+*/
+
+#webgl-container,
+.webgl-canvas {
+    touch-action: pan-y;
+}
+
+/*
+   Interaction sets cursor on body because the scroll container may sit
+   above the canvas in hit-testing.
+*/
+
+body {
+    cursor: auto;
+}
+
+/*
+   Reduced motion users should not get unnecessary animated transitions.
+*/
+
+@media (prefers-reduced-motion: reduce) {
+    html {
+        scroll-behavior: auto;
+    }
+}

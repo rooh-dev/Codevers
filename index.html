@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="description" content="CODEVERSE - Where Code Becomes Reality. A cinematic 3D journey through programming.">
+    <meta name="theme-color" content="#050505">
+    <title>CODEVERSE | Where Code Becomes Reality</title>
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;700&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/responsive.css">
+
+    <!-- GSAP -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+
+    <!-- Three.js Import Map -->
+    <script type="importmap">
+    {
+        "imports": {
+            "three": "https://unpkg.com/three@0.161.0/build/three.module.js",
+            "three/addons/": "https://unpkg.com/three@0.161.0/examples/jsm/"
+        }
+    }
+    </script>
+</head>
+<body>
+
+    <!-- SKIP LINK -->
+    <a
+        href="#accessible-summary"
+        class="skip-link"
+        data-action="skip-experience"
+    >
+        Skip Experience
+    </a>
+
+    <!-- NO SCRIPT FALLBACK -->
+    <noscript>
+        <div class="noscript-fallback">
+            <h1>CODEVERSE</h1>
+            <p>
+                This experience requires JavaScript and WebGL.
+                The core story: programming languages are tools, and the programmer is the architect.
+            </p>
+        </div>
+    </noscript>
+
+    <!-- LOADING EXPERIENCE -->
+    <div id="loader" class="loader">
+        <div class="loader-content">
+            <h1 class="loader-title">CODEVERSE</h1>
+            <p class="loader-status" data-status>INITIALIZING SYSTEM...</p>
+            <div class="loader-bar-container">
+                <div class="loader-bar" data-progress></div>
+            </div>
+            <p class="loader-percentage" data-percentage>0%</p>
+        </div>
+    </div>
+
+    <!-- WEBGL CANVAS CONTAINER -->
+    <div id="webgl-container" class="webgl-container">
+        <canvas id="webgl-canvas" class="webgl-canvas"></canvas>
+    </div>
+
+    <!-- CINEMATIC FX OVERLAYS -->
+    <div class="fx-layer" aria-hidden="true">
+        <div class="fx-vignette"></div>
+        <div class="fx-grain"></div>
+        <div class="fx-scanlines"></div>
+    </div>
+
+    <!-- SCROLL PROGRESS -->
+    <div id="scroll-progress" class="scroll-progress" aria-hidden="true">
+        <div class="scroll-progress-bar" data-progress-bar></div>
+    </div>
+
+    <!-- UI OVERLAY -->
+    <div id="ui-layer" class="ui-layer">
+        <header class="main-header">
+            <div class="logo">CODE<span>VERSE</span></div>
+            <nav class="main-nav">
+                <button
+                    class="nav-btn"
+                    data-action="mute"
+                    aria-label="Toggle Audio"
+                    aria-pressed="true"
+                >
+                    AUDIO: ON
+                </button>
+            </nav>
+        </header>
+        
+        <div id="chapter-ui" class="chapter-ui" aria-live="polite"></div>
+
+        <!-- LANGUAGE ARENA PANEL -->
+        <aside id="arena-panel" class="arena-panel" role="dialog" aria-label="Language details" aria-hidden="true">
+            <button class="arena-panel-close" data-action="close-arena" aria-label="Close language details">×</button>
+            <p class="arena-panel-label">LANGUAGE PROFILE</p>
+            <h2 class="arena-panel-title" data-arena-title></h2>
+            <p class="arena-panel-role" data-arena-role></p>
+            <p class="arena-panel-desc" data-arena-desc></p>
+            <ul class="arena-panel-topics" data-arena-topics></ul>
+        </aside>
+
+        <!-- PORTFOLIO PROJECT PANEL -->
+        <aside id="portfolio-panel" class="portfolio-panel" role="dialog" aria-label="Project details" aria-hidden="true">
+            <button class="portfolio-panel-close" data-action="close-portfolio" aria-label="Close project details">×</button>
+            <p class="portfolio-panel-label">PROJECT FILE</p>
+            <h2 class="portfolio-panel-title" data-portfolio-title></h2>
+            <p class="portfolio-panel-category" data-portfolio-category></p>
+            <p class="portfolio-panel-desc" data-portfolio-desc></p>
+            <ul class="portfolio-panel-tech" data-portfolio-tech></ul>
+            <div class="portfolio-panel-ctas">
+                <a class="portfolio-cta primary" data-portfolio-demo href="#">VIEW PROJECT</a>
+                <a class="portfolio-cta" data-portfolio-code href="#">SOURCE</a>
+            </div>
+        </aside>
+    </div>
+
+    <!-- ACCESSIBLE SUMMARY / FALLBACK -->
+    <div
+        id="accessible-summary"
+        class="accessible-summary"
+        role="region"
+        aria-label="Accessible summary and fallback"
+        aria-hidden="true"
+    >
+        <div class="accessible-summary-inner">
+            <button
+                type="button"
+                class="summary-close"
+                data-action="close-summary"
+            >
+                CLOSE
+            </button>
+
+            <h2 id="accessible-summary-title" tabindex="-1">
+                CODEVERSE — ACCESSIBLE SUMMARY
+            </h2>
+
+            <p class="summary-message" data-fallback-message>
+                CODEVERSE is a cinematic journey through programming, programming languages,
+                the programmer, and the work they create.
+            </p>
+
+            <section class="summary-section" aria-label="Chapter navigation">
+                <h3>CHAPTER NAVIGATION</h3>
+                <div class="summary-chapter-nav">
+                    <button type="button" data-scroll-progress="0.000">Origin</button>
+                    <button type="button" data-scroll-progress="0.045">Programming</button>
+                    <button type="button" data-scroll-progress="0.095">Python</button>
+                    <button type="button" data-scroll-progress="0.150">JavaScript</button>
+                    <button type="button" data-scroll-progress="0.205">C++</button>
+                    <button type="button" data-scroll-progress="0.260">Java</button>
+                    <button type="button" data-scroll-progress="0.315">C#</button>
+                    <button type="button" data-scroll-progress="0.370">Rust</button>
+                    <button type="button" data-scroll-progress="0.425">PHP</button>
+                    <button type="button" data-scroll-progress="0.495">Arena</button>
+                    <button type="button" data-scroll-progress="0.640">Programmer</button>
+                    <button type="button" data-scroll-progress="0.770">Portfolio</button>
+                    <button type="button" data-scroll-progress="0.970">Future</button>
+                </div>
+            </section>
+
+            <section class="summary-section" aria-label="Languages">
+                <h3>LANGUAGES</h3>
+                <ul>
+                    <li>Python — Intelligence, AI, data, automation.</li>
+                    <li>JavaScript — The web, interfaces, full-stack systems.</li>
+                    <li>C++ — Performance, engines, operating systems.</li>
+                    <li>Java — Enterprise, cloud, large-scale systems.</li>
+                    <li>C# — Games, interactive worlds, applications.</li>
+                    <li>Rust — Safety, performance, systems.</li>
+                    <li>PHP — Web infrastructure, servers, CMS.</li>
+                </ul>
+            </section>
+
+            <section class="summary-section" aria-label="Portfolio">
+                <h3>SELECTED WORK</h3>
+                <ul>
+                    <li>Digital City — Realtime WebGL experience.</li>
+                    <li>Space System — Orbital data visualization.</li>
+                    <li>Neural Network — AI-inspired visual system.</li>
+                    <li>Interactive Machine — Creative engineering.</li>
+                </ul>
+            </section>
+
+            <section class="summary-section" aria-label="Contact">
+                <h3>CONTACT</h3>
+                <div class="summary-ctas">
+                    <a href="#contact">CONTACT ME</a>
+                    <a href="#work">VIEW MY WORK</a>
+                </div>
+            </section>
+        </div>
+    </div>
+
+    <!-- SCROLL TRACK -->
+    <div id="scroll-container" class="scroll-container">
+        <section class="chapter-section" data-chapter="01-origin"></section>
+        <section class="chapter-section" data-chapter="02-programming"></section>
+        <section class="chapter-section" data-chapter="03-python"></section>
+        <section class="chapter-section" data-chapter="04-javascript"></section>
+        <section class="chapter-section" data-chapter="05-cpp"></section>
+        <section class="chapter-section" data-chapter="06-java"></section>
+        <section class="chapter-section" data-chapter="07-csharp"></section>
+        <section class="chapter-section" data-chapter="08-rust"></section>
+        <section class="chapter-section" data-chapter="09-php"></section>
+        <section class="chapter-section" data-chapter="10-arena"></section>
+        <section class="chapter-section" data-chapter="11-programmer"></section>
+        <section class="chapter-section" data-chapter="12-portfolio"></section>
+        <section class="chapter-section" data-chapter="13-future"></section>
+    </div>
+
+    <!-- MAIN APPLICATION SCRIPT -->
+    <script type="module" src="js/main.js"></script>
+</body>
+</html>
